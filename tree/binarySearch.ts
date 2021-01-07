@@ -1,30 +1,49 @@
-class NodeInitial {
+class Node {
     data: any;
     left: any;
     right: any;
-
-    constructor() {
-        this.data = null;
+    constructor(data) {
+        this.data = data;
         this.left = null;
         this.right = null;
     }
-
 }
 
 export default class BinarySearch {
     root: any;
-    constructor(){
+    constructor() {
         this.root = null;
     }
+    insert(data: number) {
+        let node = new Node(data)
 
-    insert(data) {
-
-        const node = new NodeInitial()
-        
-        if (!this.root) {
-            this.root = data
-            console.log(this.root , 'he')
+        // init parent to tree
+        if (this.root === null) {
+            this.root = node
+        } else {
+            this.insertNode(this.root, node)
         }
+    }
+
+    insertNode(root, node) {
+        // new < previous node
+        if (node.data < root.data) {
+            if (root.left === null) {
+                root.left = node
+            } else {
+                this.insertNode(root.left, node)
+            } 
+        } else {
+            if (root.right === null) {
+                root.right = node
+            }else {
+                this.insertNode(root.right, node); 
+            }
+        }
+    }
+
+    getRoot () {
+        return this.root
     }
 
 }
